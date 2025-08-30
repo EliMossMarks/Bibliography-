@@ -4,19 +4,22 @@ import os
 
 os.chdir(path")
 
-# load CSV
+# load and clean CSV
 
 df = pd.read_csv("taylorfrancisbib.csv")
 df.columns = df.columns.str.strip().str.lower()
 df = df[["article title", "authors", "journal title", "volume", "issue", "pages", "volume year", "published online date", "url"]]
+df = df.fillna("")
+
+# format entries
 
 entries = []
 for _, row in df.iterrows():
     authors = str(row.get("authors", "")).strip()
     title = str(row.get("article title", "")).strip()
     journal = str(row.get("journal title", "")).strip()
-    volume = str(row.get("volume", "")).strip()
-    issue = str(row.get("issue", "")).strip()
+    volume = str(row.get("volume") or "").replace(".0", "").strip()
+    issue  = str(row.get("issue") or "").replace(".0", "").strip()
     date = str(row.get("published online date", row.get("volume year", ""))).strip()
     pages = str(row.get("pages", "")).strip()
     url = str(row.get("url", "")).strip()
