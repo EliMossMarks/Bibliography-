@@ -21,7 +21,7 @@ for _, row in df.iterrows():
     pages = str(row.get("pages", "")).strip()
     url = str(row.get("url", "")).strip()
     
-    entry = f"{authors}, '{title}', in {journal}, {volume}, {issue}, {date}, {pages}, {url}"
+    entry = f"{authors}, '{title}', in {journal}, Volume {volume}, Issue {issue}, {date}, {pages}, {url}"
     entries.append(entry)
 
 doc = Document()
